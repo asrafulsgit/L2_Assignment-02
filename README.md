@@ -131,4 +131,3 @@ SELECT * FROM products WHERE discount > 50 OFFSET 10;
 
 ---
 
-**End of Document**

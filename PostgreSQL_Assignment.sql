@@ -9,10 +9,6 @@ INSERT INTO rangers (ranger_id,name,region) VALUES
         (2, 'Bob White', 'River Delta'),
         (3, 'Carol King', 'Mountain Range');
 
-
-
-
-
 CREATE TABLE species(
     species_id SERIAL PRIMARY KEY,
     common_name VARCHAR(50) NOT NULL,
@@ -45,16 +41,11 @@ INSERT INTO sightings (sighting_id,species_id,ranger_id,location,sighting_time,n
         (4, 1, 2, 'Snowfall Pass',  '2024-05-18 18:30:00', NULL);
 
 
-SELECT * FROM rangers;
-SELECT * FROM species;
-SELECT * FROM sightings;
-
 -- 1️⃣ Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
 INSERT INTO rangers (ranger_id,name,region) VALUES (4,'Derek Fox','Coastal Plains')
 
 -- 2️⃣ Count unique species ever sighted.
-SELECT count(species_id) as unique_species_count FROM sightings 
-    GROUP BY species_id;
+SELECT COUNT(DISTINCT species_id) AS unique_species_count FROM sightings;
 
 --3️⃣ Find all sightings where the location includes "Pass".
 SELECT * FROM sightings WHERE location ILIKE '%pass%';
@@ -95,13 +86,8 @@ BEGIN
 END;
 $$ LANGUAGE PLPGSQL;
 
-
-
 SELECT sighting_id, time_to_name(extract(hour FROM sighting_time )::INT)  FROM sightings;
 
-
-SELECT * FROM rangers;
-SELECT ranger_id FROM sightings;
 
 
 -- 9️⃣ Delete rangers who have never sighted any species
