@@ -53,9 +53,8 @@ SELECT * FROM sightings;
 INSERT INTO rangers (ranger_id,name,region) VALUES (4,'Derek Fox','Coastal Plains')
 
 -- 2️⃣ Count unique species ever sighted.
-SELECT species_id FROM sightings 
-    GROUP BY species_id 
-    ORDER BY species_id ASC;
+SELECT count(species_id) as unique_species_count FROM sightings 
+    GROUP BY species_id;
 
 --3️⃣ Find all sightings where the location includes "Pass".
 SELECT * FROM sightings WHERE location ILIKE '%pass%';
@@ -99,3 +98,14 @@ $$ LANGUAGE PLPGSQL;
 
 
 SELECT sighting_id, time_to_name(extract(hour FROM sighting_time )::INT)  FROM sightings;
+
+
+SELECT * FROM rangers;
+SELECT ranger_id FROM sightings;
+
+
+-- 9️⃣ Delete rangers who have never sighted any species
+DELETE FROM rangers 
+    WHERE ranger_id NOT IN(
+        SELECT ranger_id FROM sightings
+    );
