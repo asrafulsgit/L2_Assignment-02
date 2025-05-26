@@ -76,7 +76,7 @@ CREATE OR REPLACE FUNCTION time_to_name(hour_value INT)
 RETURNS TEXT AS 
 $$
 BEGIN
-    IF hour_value >= 1 AND hour_value < 12 THEN
+    IF hour_value >= 0 AND hour_value < 12 THEN
         RETURN 'Morning';
     ELSIF hour_value >= 12 AND hour_value < 17 THEN
         RETURN 'Afternoon';
